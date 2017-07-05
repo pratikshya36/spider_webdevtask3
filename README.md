@@ -33,8 +33,7 @@ Instead of API KEY I gave my API KEY=6ae549aa7de464d892343ab1a948fa14.
     
     # STEP-3:INCLUSION OF SEARCH BOX WITH AUTOCOMPLETION
     1.I included google library "places".
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9z5ZzZ6Is_8PUnKUdXtaG0Fw-B1-  AA7U&libraries=places&callback=initMap">
-</script>
+    
     2.I stored the location typed by the user in the search box (having id as "search") in a variable "search".
     3.Then I created an object of google.maps.places.Autocomplete(search) by  the name autocomplete.
     4.Then I added an addListener event to the autocomplete object when autocomplete is completedand location is selected.
