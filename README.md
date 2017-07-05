@@ -1,4 +1,4 @@
-# spider_webdevtask3
+-# spider_webdevtask3
 use github issues to host images
 ### SPIDER WEB DEVELOPMENT TASK-3
 # FRONT-END
@@ -30,7 +30,7 @@ Instead of API KEY I gave my API KEY=6ae549aa7de464d892343ab1a948fa14.
     Position implies the position of the info window which can be specified by the latitude and longitude.
     I did this in a loop and obtained city,lat,lng from cities array and temperature from temperauure array.
   6." &#8451" is for degree C symbol.
-    
+    ---
     # STEP-3:INCLUSION OF SEARCH BOX WITH AUTOCOMPLETION
     1.I included google library "places".
     
@@ -38,7 +38,7 @@ Instead of API KEY I gave my API KEY=6ae549aa7de464d892343ab1a948fa14.
     3.Then I created an object of google.maps.places.Autocomplete(search) by  the name autocomplete.
     4.Then I added an addListener event to the autocomplete object when autocomplete is completedand location is selected.
     5.Then I create an object to get the place selected by using variable "place" using autocomplete.getPlace() and obtained the complete address and latitude and longitude of this place by using the properties of this object "place" using various syntaxes.
-    
+    ---
     # STEP-4:FINDING TEMPERATURE OF THE PLACE
     1.Temperature can be obtained using OPEN WEATHER MAP API.
     2.I went to the link https://openweathermap.org/api and then clicked on API key and signed up and obtained the key.
