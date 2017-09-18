@@ -1,51 +1,202 @@
--# spider_webdevtask3
-use github issues to host images
-### SPIDER WEB DEVELOPMENT TASK-3
-# FRONT-END
-# CREATED a weather application that shows the weather of the location clicked by the user on a Google Map
+# Calendar Javascript Library
 
-# STEP BY STEP APPROACH TO CREATE THE APPLICATION
+Well, I suppose I should help you set it up.
 
-# STEP-1:INCLUSION OF GOOGLE MAP
-1.The map can be obtained from GOOGLE MAPS API.
-2.The link for the website is "https://developers.google.com/maps/".
-3.Click on "web".
-4.Then click on "get API".
-5.Typed the project name and then click on "ENABLE API" and got my API KEY.
-6.In your HTML file include this:<script async defer src="https://maps.googleapis.com/maps/api/js?key=API KEY&callback=initMap"><script>
-Instead of API KEY I gave my API KEY=6ae549aa7de464d892343ab1a948fa14.
-7.Then I created a function "initMap" and wrote the following code
-	options={zoom:4,center:{lat:20.5937,lng: 78.9629}};
-	map=new google.maps.Map(document.getElementById("map"),options);
-  This creates a map object of google maps.
-  The map is now available on the browser page at the location mentioned by div element having id as "map" and the map is having zoom     level of 4 and centered at India(The given lat and lng are latitude and longitude of India).
-  
-  # STEP-2:INCLUSION OF INFOWINDOWS
-  1.There are 4 infowindows which are visible when the index.html is run.
-  2.I created an array of objects by the name of "cities" and stored the name of 4 cities and corresponding latitudes and longitudes.
-  3.Then I created 4 different objects of google.maps.InfoWindow().If we create one object then we will see one infowindow which is of the last city because the content of the object will be overwritten.
-  4.The different objects can be created by taking a variable s and assigning it the value "info"+i.toString() where i is the looping variable.It can be seen in the "info_window" function.
-  5.Each infowidow object has content and position.
-    I gave content as city name and temperature.The way I got the temperature is explained later in the README.
-    Position implies the position of the info window which can be specified by the latitude and longitude.
-    I did this in a loop and obtained city,lat,lng from cities array and temperature from temperauure array.
-  6." &#8451" is for degree C symbol.
-    ---
-    # STEP-3:INCLUSION OF SEARCH BOX WITH AUTOCOMPLETION
-    1.I included google library "places".
-    
-    2.I stored the location typed by the user in the search box (having id as "search") in a variable "search".
-    3.Then I created an object of google.maps.places.Autocomplete(search) by  the name autocomplete.
-    4.Then I added an addListener event to the autocomplete object when autocomplete is completedand location is selected.
-    5.Then I create an object to get the place selected by using variable "place" using autocomplete.getPlace() and obtained the complete address and latitude and longitude of this place by using the properties of this object "place" using various syntaxes.
-    ---
-    # STEP-4:FINDING TEMPERATURE OF THE PLACE
-    1.Temperature can be obtained using OPEN WEATHER MAP API.
-    2.I went to the link https://openweathermap.org/api and then clicked on API key and signed up and obtained the key.
-    3.Then I used AJAX in the following ways.
-        1.Web browsers have built in tool called "XMLHttpRequest".It establishes connection with the URL that we specify and helps us to           send or receive data.I created a new instance of this tool by the name xmlhttp.
-          xmlhttp=new XMLHttpRequest();
-         2.I used a method of this tool to get data from the url  url="http://api.openweathermap.org/data/2.5/weather?
-           lat="+lat+"&lon="+lng+"&APPID="+api"  where lat and lng are latitude and longitude of the place and api is my API KEY
-           "6ae549aa7de464d892343ab1a948fa14"
- 
+I'd start with the HTML file.
+Just create the containers for each of the calendar and the organizer, in the body, ofcourse.
+```html
+<link href="stylesheet.css" rel="stylesheet" />
+
+<div id="calendarContainer"></div>
+<div id="organizerContainer"></div>
+
+<script src="js/library.js"></div>
+```
+
+Then, start by creating a calendar object and an organizer object.
+  * calendar for 
+    - previewing the calendar
+  * organizer for
+    - handling calendar clicks
+    - displaying events
+
+The code will be similar to this
+```js
+var calendar = new Calendar("calendarContainer", "small", [ "Wednesday", 3 ], [ "#e91e63", "#c2185b", "#ffffff", "#f8bbd0" ]);
+var organizer = new Organizer("organizerContainer", calendar);
+```
+Ok, ok, I'll take it easy and start by explaining each parameter. For the
+  * calendar
+    - "calendarContainer" -> the container that will hold the calendar
+    - "small" -> the size; ranges between
+      * small ( width: 400px, height: 400px )
+      * medium ( width: 600px, height: 600px )
+      * large ( width: 800px, height: 800px )
+    - [ "Wednesday", 3 ] -> 
+      * First is the first day of the week ( any of the 7 you want )
+      * Second is the number of characters the days of the week labels should be
+    - [ "#e91e63", "#c2185b", "#ffffff", "#f8bbd0" ]
+      * first is primaryColor
+      * second is primaryDarkColor
+      * third is textColor
+      * fourth is textDarkColor
+      * _ I adivse you to use [MaterialPalette] (http://www.materialpalette.com/pink/purple) to chose them _
+  * organizer
+    - "organizerContainer" -> the container that will hold the organizer
+    - "calendar" -> the calendar object to associate the organizer to, so that it can have the same height and width and set up the listeners of that object
+
+Well now, I'm gonna show you the advised format for the events, making it easier to collect them using JOIN in SQL
+```js
+data = {
+  years: [ {
+      int: (new Date().getFullYear()), months: [ {
+          int: (new Date().getMonth() + 1), days: [ {
+              int: (new Date().getDate()), events: [ {
+                  startTime: "6:00",
+                  endTime: "7:00",
+                  mTime: "am",
+                  text: "This is scheduled to show today, anyday."
+                }, {
+                  startTime: "5:45",
+                  endTime: "7:15",
+                  mTime: "pm",
+                  text: "WIP Library"
+                }, {
+                  startTime: "10:00",
+                  endTime: "11:00",
+                  mTime: "pm",
+                  text: "Probably won't fix that (time width)"
+              } ] 
+          } ] 
+      } ]
+  } ] 
+};
+```
+Woops, I did it again. I guess though this time that the events of a specific day and their formats is pretty obvious and self explanatory.
+Oh, again, this should be grabbed from a database or a JSON file. The library is not responsible for grabbing JSON to use.
+The ```new Date()``` then the methods connected to it makes these events show today, and by today I mean anyday's today.
+
+Ofcourse, after that, we will need to display each day's events.
+Well, I did that by...
+```js
+function showEvents() {
+  theYear = -1, theMonth = -1, theDay = -1;
+  for (i = 0; i < data.years.length; i++) {
+    if (calendar.date.getFullYear() == data.years[i].int) {
+      theYear = i;
+      break;
+    }
+  }
+  if (theYear == -1) return;
+  for (i = 0; i < data.years[theYear].months.length; i++) {
+    if ((calendar.date.getMonth() + 1) == data.years[theYear].months[i].int) {
+      theMonth = i;
+      break;
+    }
+  }
+  if (theMonth == -1) return;
+  for (i = 0; i < data.years[theYear].months[theMonth].days.length; i++) {
+    if (calendar.date.getDate() == data.years[theYear].months[theMonth].days[i].int) {
+      theDay = i;
+      break;
+    }
+  }
+  if (theDay == -1) return;
+  theEvents = data.years[theYear].months[theMonth].days[theDay].events;  
+  organizer.list(theEvents); // what's responsible for listing
+}
+```
+Now as commented, the ```organizer.list(theEvents)``` is what is responsible for listing the stuff. And, oh, theEvents is the array of events of a specific day.
+Umm. I am having second thoughts about including that in the list method. Anyway, if there's a necessity fork this. Please.
+And what preceeds the listing method, is the getting the calendar's focused date, and matching it with the event's year, then month, consequently day.
+```calendar.date``` is how you'll get the chosen date on the calendar of that calendar object.
+After deep thinking, I might've left that showing of the events for you because of terrible practices ( hinting about that data array ).
+
+Moving away from that don't forget to call that function in order to list the events on calendar load.
+For me I placed it like this, directly after the function. ( also after the calendar and organizer declaration )
+```js
+showEvents();
+```
+
+Last but not least, time to declare the listeners for the year, month, day sliders and the day blocks on the calendar.
+```js
+organizer.setOnClickListener('day-slider', function () { showEvents(); console.log("Day back slider clicked"); }, function () { showEvents(); console.log("Day next slider clicked"); });
+organizer.setOnClickListener('days-blocks', function () { showEvents(); console.log("Day block clicked"); }, null);
+organizer.setOnClickListener('month-slider', function () { showEvents(); console.log("Month back slider clicked"); }, function () { showEvents(); console.log("Month next slider clicked"); });
+organizer.setOnClickListener('year-slider', function () { showEvents(); console.log("Year back slider clicked"); }, function () { showEvents(); console.log("Year next slider clicked"); });
+```
+This way you can pass any functions in order to run after switching the day to the desired one.
+Oh, so the second parameter is the back callback. While the third is the next callback.
+Next and back are only used with sliders. So just the second parameter is needed with blocks.
+The only clicklisteners can be set to ```'day-slider', 'month-slider', 'year-slider', 'day-blocks'```.
+I haven't tried passing null for the parameters that I haven't shown as null here. But I doubt that you will need to pass them null since you'll have to show the events.
+
+So the final javascript code will be
+```js
+var calendar = new Calendar("calendarContainer", "small", [ "Wednesday", 3 ], [ "#e91e63", "#c2185b", "#ffffff", "#f8bbd0" ]);
+var organizer = new Organizer("organizerContainer", calendar);
+
+data = {
+  years: [ {
+      int: (new Date().getFullYear()), months: [ {
+          int: (new Date().getMonth() + 1), days: [ {
+              int: (new Date().getDate()), events: [ {
+                  startTime: "6:00",
+                  endTime: "7:00",
+                  mTime: "am",
+                  text: "This is scheduled to show today, anyday."
+                }, {
+                  startTime: "5:45",
+                  endTime: "7:15",
+                  mTime: "pm",
+                  text: "WIP Library"
+                }, {
+                  startTime: "10:00",
+                  endTime: "11:00",
+                  mTime: "pm",
+                  text: "Probably won't fix that (time width)"
+              } ] 
+          } ] 
+      } ]
+  } ] 
+};
+
+function showEvents() {
+  theYear = -1, theMonth = -1, theDay = -1;
+  for (i = 0; i < data.years.length; i++) {
+    if (calendar.date.getFullYear() == data.years[i].int) {
+      theYear = i;
+      break;
+    }
+  }
+  if (theYear == -1) return;
+  for (i = 0; i < data.years[theYear].months.length; i++) {
+    if ((calendar.date.getMonth() + 1) == data.years[theYear].months[i].int) {
+      theMonth = i;
+      break;
+    }
+  }
+  if (theMonth == -1) return;
+  for (i = 0; i < data.years[theYear].months[theMonth].days.length; i++) {
+    if (calendar.date.getDate() == data.years[theYear].months[theMonth].days[i].int) {
+      theDay = i;
+      break;
+    }
+  }
+  if (theDay == -1) return;
+  theEvents = data.years[theYear].months[theMonth].days[theDay].events;  
+  organizer.list(theEvents); // what's responsible for listing
+}
+
+showEvents();
+
+organizer.setOnClickListener('day-slider', function () { showEvents(); console.log("Day back slider clicked"); }, function () { showEvents(); console.log("Day next slider clicked"); });
+organizer.setOnClickListener('days-blocks', function () { showEvents(); console.log("Day block clicked"); }, null);
+organizer.setOnClickListener('month-slider', function () { showEvents(); console.log("Month back slider clicked"); }, function () { showEvents(); console.log("Month next slider clicked"); });
+organizer.setOnClickListener('year-slider', function () { showEvents(); console.log("Year back slider clicked"); }, function () { showEvents(); console.log("Year next slider clicked"); });
+```
+
+Well a good demonstration is the ```example.html```
+Or you can check [CodePen] (https://codepen.io/nizarmah/pen/LkjjWV)
+
+Have fun. Later.
