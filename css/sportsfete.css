@@ -1,0 +1,49 @@
+
+html
+{
+    overflow: scroll;
+}
+header {
+  height: 50px;
+  width: 100%;
+  background: #f00;
+  z-index: 50;
+  position: fixed;
+  display: inline-block;
+  padding: 0;
+}
+.container
+{
+	height:100%;
+}
+.jumbotron 
+{
+  
+      background: url('../images/banner.jpg') no-repeat center center  fixed;
+      background-size: cover;
+      padding-top: 20%;
+      padding-bottom: 50%;
+     
+  }
+
+#AboutUs.inview
+  {
+     visibility:visible;
+    -webkit-animation-duration: 3s;
+  }
+  #logo.inview
+  {
+
+    visibility:visible;
+    -webkit-animation-duration: 2s;
+  }
+  #AboutUs1.inview
+  {
+    visibility:visible;
+    -webkit-animation-duration: 3s;
+  }
+  #logo1.inview
+  {
+      visibility:visible;
+    -webkit-animation-duration: 2s;
+  }
